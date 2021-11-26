@@ -4,21 +4,24 @@ from collections import Counter
 import requests
 import os
 from pprint import pprint
+
 # declarations
 issue_title_list= []
 issue_number_list = []
 issue_assignee = []
 match_issue_list =[]
 username_list= {}
-# fetch list of issues
+
 token = os.getenv('GITHUB_TOKEN', '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')
+headers = {'Authorization': f'token {token}'}
 owner = "PavitraNK"
 repo = "git-issue-bot-python"
+
+# fetch list of issues
 query_url = f"https://api.github.com/repos/{owner}/{repo}/issues"
 params = {
     "state": "all",
 }
-headers = {'Authorization': f'token {token}'}
 r = requests.get(query_url, headers=headers, params=params)
 issue_details= r.json()
 for each_issue in range(len(issue_details)):
@@ -28,9 +31,9 @@ for each_issue in range(len(issue_details)):
     if issue_details[each_issue].get("closed_at") == None:
         issue_assignee.append(issue_details[each_issue].get("assignee").get('login'))
 
-original_user_input= "login issue"
 
 #search original input in issue list
+original_user_input= "login issue"
 for each_issue in range(len(issue_title_list)):
     if original_user_input in issue_title_list[each_issue]:
         match_issue_list.append(issue_title_list[each_issue])

@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  python:
+    image: python:3.7.10
+    volumes:
+      - ./issue_bot:/issue_bot
+    ports:
+      - 8000:8000
+    command: bash -c "cd ./issue_bot && pip install -r requirements.txt && python3 -m spacy download en && python3 -m nltk.downloader popular && python3 manage.py migrate && python manage.py runserver 0.0.0.0:8000"

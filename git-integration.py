@@ -4,7 +4,9 @@ from collections import Counter
 import requests
 import os
 from pprint import pprint
-
+import nltk
+from stop_words import get_stop_words
+from nltk.corpus import stopwords
 # declarations
 issue_title_list= []
 issue_number_list = []
@@ -12,8 +14,8 @@ issue_number_title= []
 issue_assignee = []
 match_issue_list =[]
 username_list= {}
-
-token = os.getenv('GITHUB_TOKEN', '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')
+# Github token and
+token = os.getenv('GITHUB_TOKEN', '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')
 headers = {'Authorization': f'token {token}'}
 owner = "PavitraNK"
 repo = "git-issue-bot-python"
@@ -32,17 +34,43 @@ for each_issue in range(len(issue_details)):
     if issue_details[each_issue].get("closed_at") == None:
         issue_assignee.append(issue_details[each_issue].get("assignee").get('login'))
 
-print("issue_title_list:", issue_title_list)
-print("issue_number_list:", issue_number_list)
+if issue_title_list:
+    print("issue_title_list:", issue_title_list)
+    print("issue_number_list:", issue_number_list)
+else:
+    print("Seems, Related issues not found. Please report this as a new issue")
 
 #search original input in issue list
-original_user_input= "login issue"
+original_user_input= "I am facing dashboard issue that is not good"
 for each_issue in range(len(issue_title_list)):
     if original_user_input.lower() in issue_title_list[each_issue].lower():
         match_issue_list.append(issue_title_list[each_issue])
 
-#Search filtered keywords from user input in issue list. Keyword extraction logic pending
-search_words=original_user_input.split()
+#Search filtered keywords from user input in issue list. Keyword extraction
+# logic added through Natural language toolkit
+
+# Find out stop words and natural words
+stop_words = list(get_stop_words('en'))         #Have around 900 stopwords
+nltk_words = list(stopwords.words('english'))
+stop_words.extend(nltk_words)
+#Tokenized original user input
+tokens=nltk.word_tokenize(original_user_input)
+print(tokens)
+search_words = []
+# Removed stop words and other ntlk words from tokenized user input
+for words in tokens:
+    if not words.lower() in stop_words:
+        search_words.append(words.lower())
+
+print("serach words:", search_words)
+# Removed some common words from tokenized user input
+some_common_words_for_manual_removal = ["issue", "problem", "faced", "facing", "good", "bad"]
+for each_word in some_common_words_for_manual_removal:
+    if each_word in search_words:
+        search_words.remove(each_word)
+
+print("search words:", search_words)
+
 for each_word in search_words:
     for each_issue in range(len(issue_title_list)):
         if each_word.lower() in issue_title_list[each_issue].lower():
@@ -108,3 +136,13 @@ issue_details = repo.create_issue(
     ]
 )
 pprint(issue_details)
+
+
+#User input validation
+user_input='N'
+users_predefined_input1 = ['y', 'n','yes', 'no']
+if user_input.lower() in  users_predefined_input1:
+    print("Entered valid input")
+    # Add code here to proceed and ask user about issue details
+else:
+    print("Please enter input in form of y|yes|n|no")

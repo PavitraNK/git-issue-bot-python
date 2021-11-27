@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4282502-f8f2-4808-b35c-576cb562286d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/git-integration.py" beforeDir="false" afterPath="$PROJECT_DIR$/git-integration.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,9 +46,13 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="128" y="0" width="1014" height="599" key="SettingsEditor" timestamp="1637862138303">
+    <state x="128" y="0" width="1014" height="599" key="SettingsEditor" timestamp="1638013457590">
       <screen x="0" y="0" width="1279" height="599" />
     </state>
-    <state x="128" y="0" width="1014" height="599" key="SettingsEditor/0.0.1279.599@0.0.1279.599" timestamp="1637862138303" />
+    <state x="128" y="0" width="1014" height="599" key="SettingsEditor/0.0.1279.599@0.0.1279.599" timestamp="1638013457590" />
+    <state x="249" y="0" width="772" height="598" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1638014104235">
+      <screen x="0" y="0" width="1279" height="599" />
+    </state>
+    <state x="249" y="0" width="772" height="598" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1279.599@0.0.1279.599" timestamp="1638014104235" />
   </component>
 </project>
